@@ -31,7 +31,7 @@ def dijkstra(initial_state: str):
             next_state[idx], next_state[new_y * 3 + new_x] = next_state[new_y * 3 + new_x], next_state[idx]
             next_state = ''.join(next_state)
             if next_state not in visited:
-                visited[''.join(next_state[:9])] = True
+                visited[''.join(next_state)] = True
                 heapq.heappush(pq, (cur_dist + 1, next_state))
     return -1
 
