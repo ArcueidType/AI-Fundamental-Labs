@@ -6,7 +6,7 @@ def h(state):
     for i in range(len(state)):
         if state[i] != 'x':
             ori = ord(state[i]) - ord('1')
-            value += abs(i // 3 - value // 3) + abs(i % 3 - ori % 3)
+            value += abs(i // 3 - ori // 3) + abs(i % 3 - ori % 3)
     return value
 
 
