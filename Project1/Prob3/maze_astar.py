@@ -2,10 +2,17 @@ import numpy as np
 import heapq
 
 
-def h(cur_pos: tuple, dest_pos: tuple):
+def h1(cur_pos: tuple, dest_pos: tuple):
     x_cur, y_cur = cur_pos[0], cur_pos[1]
     x_dest, y_dest = dest_pos[0], dest_pos[1]
     value = abs(y_dest - y_cur) + abs(x_dest - x_cur)
+    return value
+
+
+def h2(cur_pos: tuple, dest_pos: tuple):
+    x_cur, y_cur = cur_pos[0], cur_pos[1]
+    x_dest, y_dest = dest_pos[0], dest_pos[1]
+    value = abs(y_dest - y_cur) ** 2 + abs(x_dest - x_cur) ** 2
     return value
 
 
@@ -20,7 +27,7 @@ def a_star(maze: np.ndarray, ori: tuple, dest: tuple):
     mov_x = [1, 0, -1, 0]
     mov_y = [0, -1, 0, 1]
     pq = []
-    heapq.heappush(pq, (h(ori, dest), ori))
+    heapq.heappush(pq, (h2(ori, dest), ori))
     step = 1
 
     def cur_path(ori: tuple, dest: tuple):
@@ -47,7 +54,7 @@ def a_star(maze: np.ndarray, ori: tuple, dest: tuple):
                     dist[y_new, x_new] = cur_dist + 1
                     prev[y_new, x_new] = (x_cur, y_cur)
                     searched.add((x_new, y_new))
-                    heapq.heappush(pq, (dist[y_new, x_new] + h((x_new, y_new), dest), (x_new, y_new)))
+                    heapq.heappush(pq, (dist[y_new, x_new] + h2((x_new, y_new), dest), (x_new, y_new)))
     back = dest
     path = [back]
     while back != ori:

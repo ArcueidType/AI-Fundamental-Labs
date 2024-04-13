@@ -1,9 +1,7 @@
-"""
-待补充代码：对搜索过的格子染色
-"""
 import matplotlib.pyplot as plt
 from matplotlib import animation
 import numpy as np
+import os
 from maze_dijkstra import dijkstra
 from maze_astar import a_star
 from maze_dfs import dfs
@@ -24,18 +22,18 @@ def visualize_maze_with_path(maze, algorithm: str):
     fig = plt.figure(figsize=(10, 10 * len(maze) / len(maze[0])))
 
     maze[path[0][1]][path[0][0]] = -1
-    plt.imshow(maze, cmap='tab20c_r', interpolation='nearest')  # 使用灰度色图，并关闭插值
+    plt.imshow(maze, cmap='tab20c_r', interpolation='nearest')
 
     plt.plot(path[0][0], path[0][1], marker='o', markersize=10, color='saddlebrown')
     plt.plot(path[-1][0], path[-1][1], marker='*', markersize=10, color='saddlebrown')
-    # 设置坐标轴刻度和边框
+
     plt.xticks(range(len(maze[0])))
     plt.yticks(range(len(maze)))
     plt.gca().set_xticks([x - 0.5 for x in range(1, len(maze[0]))], minor=True)
     plt.gca().set_yticks([y - 0.5 for y in range(1, len(maze))], minor=True)
     plt.grid(which="minor", color="black", linestyle='-', linewidth=2)
 
-    plt.axis('on')  # 显示坐标轴
+    plt.axis('on')
 
     def ani(frame):
         _, cur_path, cur_searched = step_infos[frame]
@@ -57,9 +55,10 @@ def visualize_maze_with_path(maze, algorithm: str):
         plt.axis('on')  # 显示坐标轴
         plt.imshow(maze, cmap='tab20c_r', interpolation='nearest')
         return []
-
+    
+    fig.suptitle(algorithm)
     ani = animation.FuncAnimation(fig=fig, func=ani, frames=len(step_infos), interval=1, blit=True, repeat=False)
-    # ani.save(algorithm + '.gif', writer='pillow', fps=24)
+    # ani.save(algorithm + '.gif', writer='pillow', fps=24)  # 不要和plt.show()同时使用，否则会提前展示出所有搜索过的区域
     plt.show()
 
 # maze = np.array([
