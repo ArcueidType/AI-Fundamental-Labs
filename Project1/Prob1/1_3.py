@@ -2,7 +2,7 @@ import heapq
 
 
 def dijkstra(graph, origin, dest):
-    pq = [(0, 1)]
+    pq = [(0, origin)]
     dist = [-1] * (dest + 1)
 
     while pq:

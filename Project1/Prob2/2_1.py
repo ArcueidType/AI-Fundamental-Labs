@@ -1,13 +1,6 @@
 import queue
 
 
-def reachable(x, y):
-    if 0 <= x < 3 and 0 <= y < 3:
-        return True
-    else:
-        return False
-
-
 def dfs(state: list):
     global visited
     global stack
