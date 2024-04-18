@@ -4,6 +4,7 @@ import numpy as np
 import os
 from maze_dijkstra import dijkstra
 from maze_astar import a_star
+import maze_astar
 from maze_dfs import dfs
 from maze_bfs import bfs
 
@@ -11,7 +12,7 @@ from maze_bfs import bfs
 def visualize_maze_with_path(maze, algorithm: str):
     match algorithm:
         case 'a_star':
-            path, _, step_infos = a_star(maze, (1, 0), (33, 34))
+            path, _, step_infos = a_star(maze, (1, 0), (33, 34), maze_astar.h2)
         case 'dijkstra':
             path, _, step_infos = dijkstra(maze, (1, 0), (33, 34))
         case 'bfs':

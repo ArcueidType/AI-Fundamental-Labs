@@ -16,7 +16,7 @@ def h2(cur_pos: tuple, dest_pos: tuple):
     return value
 
 
-def a_star(maze: np.ndarray, ori: tuple, dest: tuple):
+def a_star(maze: np.ndarray, ori: tuple, dest: tuple, h):
     m = len(maze[0])
     n = len(maze)
     dist = np.array([[-1 for _ in range(m)] for _ in range(n)])
@@ -27,7 +27,7 @@ def a_star(maze: np.ndarray, ori: tuple, dest: tuple):
     mov_x = [1, 0, -1, 0]
     mov_y = [0, -1, 0, 1]
     pq = []
-    heapq.heappush(pq, (h2(ori, dest), ori))
+    heapq.heappush(pq, (h(ori, dest), ori))
     step = 1
 
     def cur_path(ori: tuple, dest: tuple):
@@ -54,7 +54,7 @@ def a_star(maze: np.ndarray, ori: tuple, dest: tuple):
                     dist[y_new, x_new] = cur_dist + 1
                     prev[y_new, x_new] = (x_cur, y_cur)
                     searched.add((x_new, y_new))
-                    heapq.heappush(pq, (dist[y_new, x_new] + h2((x_new, y_new), dest), (x_new, y_new)))
+                    heapq.heappush(pq, (dist[y_new, x_new] + h((x_new, y_new), dest), (x_new, y_new)))
     back = dest
     path = [back]
     while back != ori:
@@ -72,5 +72,5 @@ if __name__ == '__main__':
     maze = np.ones((n, m), dtype=np.int8)
     for i in range(n):
         maze[i] = input().split(' ')
-    path, dist, searched = a_star(maze, (0, 0), (m - 1, n - 1))
+    path, dist, searched = a_star(maze, (0, 0), (m - 1, n - 1), h2)
     print(path, dist, searched)
