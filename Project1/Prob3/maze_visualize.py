@@ -9,16 +9,16 @@ from maze_dfs import dfs
 from maze_bfs import bfs
 
 
-def visualize_maze_with_path(maze, algorithm: str):
+def visualize_maze_with_path(maze, ori, dest, algorithm: str):
     match algorithm:
         case 'a_star':
-            path, _, step_infos = a_star(maze, (1, 0), (33, 34), maze_astar.h2)
+            path, _, step_infos = a_star(maze, ori, dest, maze_astar.h2)
         case 'dijkstra':
-            path, _, step_infos = dijkstra(maze, (1, 0), (33, 34))
+            path, _, step_infos = dijkstra(maze, ori, dest)
         case 'bfs':
-            path, _, step_infos = bfs(maze, (1, 0), (33, 34))
+            path, _, step_infos = bfs(maze, ori, dest)
         case 'dfs':
-            path, _, step_infos = dfs(maze, (1, 0), (33, 34))
+            path, _, step_infos = dfs(maze, ori, dest)
 
     fig = plt.figure(figsize=(10, 10 * len(maze) / len(maze[0])))
 
@@ -83,13 +83,13 @@ def visualize_maze_with_path(maze, algorithm: str):
 
 if __name__ == '__main__':
     maze = np.load('maze.npy')
-    visualize_maze_with_path(maze, 'a_star')
+    visualize_maze_with_path(maze, (1, 0), (33, 34), 'a_star')
 
     # maze = np.load('maze.npy')
-    # visualize_maze_with_path(maze, 'dijkstra')
+    # visualize_maze_with_path(maze, (1, 0), (33, 34), 'dijkstra')
 
     # maze = np.load('maze.npy')
-    # visualize_maze_with_path(maze, 'dfs')
+    # visualize_maze_with_path(maze, (1, 0), (33, 34), 'dfs')
 
     # maze = np.load('maze.npy')
-    # visualize_maze_with_path(maze, 'bfs')
+    # visualize_maze_with_path(maze, (1, 0), (33, 34), 'bfs')
